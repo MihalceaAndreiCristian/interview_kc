@@ -1,28 +1,24 @@
-plugins {
-    kotlin("jvm")
-    id("io.quarkus")  // Add the Quarkus plugin
-}
-
-group = "ro.amihalcea"
-version = "1.0.0-SNAPSHOT"
-
-repositories {
-    mavenCentral()
-}
+apply(plugin = "org.jetbrains.kotlin.plugin.allopen")
 
 dependencies {
-    implementation(platform("io.quarkus.platform:quarkus-bom:3.5.0"))
+    implementation("io.quarkus:quarkus-resteasy-reactive-jackson")
+    implementation("io.quarkus:quarkus-resteasy-reactive")
+
     implementation("org.apache.camel.quarkus:camel-quarkus-core:3.5.0")
     implementation("org.apache.camel.quarkus:camel-quarkus-direct:3.5.0")
     implementation("org.apache.camel.quarkus:camel-quarkus-rest:3.5.0")
     implementation("org.apache.camel.quarkus:camel-quarkus-jackson:3.5.0")
 
-    implementation("org.apache.camel.quarkus:camel-quarkus-kafka:3.22.0")
-    // Quarkus core
-    implementation("io.quarkus:quarkus-arc")
-    implementation("io.quarkus:quarkus-agroal")
-    implementation("io.quarkus:quarkus-container-image-jib")
+    implementation("org.apache.camel.quarkus:camel-quarkus-kafka:3.5.0")
+    // OIDC for token validation
+    implementation("io.quarkus:quarkus-oidc")
+    implementation("io.quarkus:quarkus-security")
+}
 
+allOpen {
+    annotation("jakarta.ws.rs.Path")
+    annotation("jakarta.enterprise.context.ApplicationScoped")
+    annotation("io.quarkus.test.junit.QuarkusTest")
 }
 
 tasks.test {
