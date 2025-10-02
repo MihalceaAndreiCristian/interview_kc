@@ -21,7 +21,9 @@ class TokenRoute(context: CamelContext) : RouteBuilder(context) {
             .setHeader("Content-Type").constant("application/x-www-form-urlencoded")
             .setBody().simple("grant_type=authorization_code&code=\${header" +
                     ".code}&client_id=finance-client&redirect_uri=http://localhost:8081/token")
-            .to("http://localhost:8080/realms/finance-app/protocol/openid-connect/token?bridgeEndpoint=true&throwExceptionOnFailure=true")
+            .to("rest:post://realms/finance-app/protocol/openid-connect/token?host" +
+                    "=localhost:8080&bridgeEndpoint=true" +
+                    "&throwExceptionOnFailure=true")
             .unmarshal().json()
             .log("Body: \${body}")
             .setHeader("Authorization").simple("Bearer \${body[access_token]}")
