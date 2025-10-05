@@ -4,6 +4,7 @@ import jakarta.enterprise.context.ApplicationScoped
 import org.apache.camel.CamelContext
 import org.apache.camel.builder.RouteBuilder
 import org.apache.camel.model.rest.RestParamType
+import processor.JwtBean
 
 @ApplicationScoped
 class TokenRoute(context: CamelContext) : RouteBuilder(context) {
@@ -19,6 +20,7 @@ class TokenRoute(context: CamelContext) : RouteBuilder(context) {
             .log("Received auth code: \${header.code}")
             .setHeader("CamelHttpMethod").constant("POST")
             .setHeader("Content-Type").constant("application/x-www-form-urlencoded")
+            .bean(JwtBean)
             .setBody().simple("grant_type=authorization_code&code=\${header" +
                     ".code}&client_id=finance-client&redirect_uri=http://localhost:8081/token")
             .to("rest:post://realms/finance-app/protocol/openid-connect/token?host" +
