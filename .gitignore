@@ -49,5 +49,4 @@ lost+found/
 .aider*
 .claude/
 manual/
-token-microservice/
-
+keys/

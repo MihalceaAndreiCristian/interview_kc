@@ -1,0 +1,40 @@
+quarkus:
+  http:
+    port: 8081
+  log:
+    console:
+      json: false
+    level: INFO
+  kafka: #important config to not start the default kafka server due to deprecate docker image
+    devservices:
+      enabled: false
+
+
+keycloak:
+  realm: finance-app
+  base-url: http://localhost:8080
+  token-endpoint: ${keycloak.base-url}/realms/${keycloak.realm}/protocol/openid-connect/token
+  client-id: finance-client
+  client-secret: finance-client-secret # set if using confidential client; else remove
+  redirect-uri: http://localhost:8081/token
+
+transactions:
+  base-url: http://localhost:8082
+  endpoint: ${transactions.base-url}/api/transactions
+
+kafka:
+  bootstrap-servers: localhost:9092
+  topic: user-transactions
+
+
+keys:
+  private: /Users/andreimihalcea/Documents/Projects/inteview_kc/keys/private_key.pem
+
+mp:
+  messaging:
+    outgoing:
+    user-transactions:
+      connector: smallrye-kafka
+      topic: user-transactions
+      value:
+        serializer: org.apache.kafka.common.serialization.StringSerializer
