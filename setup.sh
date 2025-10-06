@@ -293,14 +293,14 @@ networks:
     driver: bridge
 EOF
 
-# Step 6: Create gradle.properties for microservices
-echo -e "${BLUE}⚙️  Creating Gradle properties...${NC}"
-cat > gradle.properties << 'EOF'
-#Gradle properties
-quarkusPlatformArtifactId=quarkus-bom
-quarkusPlatformGroupId=io.quarkus.platform
-quarkusPlatformVersion=3.4.1
-EOF
+## Step 6: Create gradle.properties for microservices
+#echo -e "${BLUE}⚙️  Creating Gradle properties...${NC}"
+#cat > gradle.properties << 'EOF'
+##Gradle properties
+#quarkusPlatformArtifactId=quarkus-bom
+#quarkusPlatformGroupId=io.quarkus.platform
+#quarkusPlatformVersion=3.4.1
+#EOF
 
 # Step 7: Clean up existing containers and start fresh
 echo -e "${BLUE}🧹 Cleaning up existing containers...${NC}"
